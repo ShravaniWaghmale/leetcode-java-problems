@@ -1,0 +1,59 @@
+class Solution {
+    class Fenwick {
+        int[] bit;
+        int n;
+
+        Fenwick(int n) {
+            this.n = n;
+            bit = new int[n + 2];
+        }
+
+        void update(int idx, int val) {
+            while (idx <= n) {
+                bit[idx] += val;
+                idx += idx & -idx;
+            }
+        }
+
+        int query(int idx) {
+            int sum = 0;
+            while (idx > 0) {
+                sum += bit[idx];
+                idx -= idx & -idx;
+            }
+            return sum;
+        }
+    }
+
+    public long countSubarrays(int[] nums, int k) {
+        int n = nums.length;
+        int pos = 0;
+
+        while (nums[pos] != k) pos++;
+
+        int offset = n + 2;
+        Fenwick bit = new Fenwick(2 * n + 5);
+
+        int balance = 0;
+        bit.update(offset, 1);
+
+        for (int i = pos - 1; i >= 0; i--) {
+            if (nums[i] > k) balance++;
+            else balance--;
+            bit.update(balance + offset, 1);
+        }
+
+        long ans = 0;
+        balance = 0;
+
+        for (int i = pos; i < n; i++) {
+            if (i > pos) {
+                if (nums[i] > k) balance++;
+                else balance--;
+            }
+            ans += bit.query(balance + offset);
+        }
+
+        return ans;
+    }
+}
