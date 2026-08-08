@@ -1,0 +1,52 @@
+class Solution {
+    public int numRookCaptures(char[][] board) {
+        int rookRow = 0;
+        int rookCol = 0;
+
+        // Find the rook
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] == 'R') {
+                    rookRow = i;
+                    rookCol = j;
+                }
+            }
+        }
+
+        int count = 0;
+
+        // Up, Down, Left, Right
+        int[][] directions = {
+            {-1, 0},
+            {1, 0},
+            {0, -1},
+            {0, 1}
+        };
+
+        // Check all 4 directions
+        for (int[] dir : directions) {
+            int row = rookRow + dir[0];
+            int col = rookCol + dir[1];
+
+            while (row >= 0 && row < 8 && col >= 0 && col < 8) {
+
+                // Bishop blocks the rook
+                if (board[row][col] == 'B') {
+                    break;
+                }
+
+                // Pawn can be captured
+                if (board[row][col] == 'p') {
+                    count++;
+                    break;
+                }
+
+                // Empty square, continue
+                row += dir[0];
+                col += dir[1];
+            }
+        }
+
+        return count;
+    }
+}
