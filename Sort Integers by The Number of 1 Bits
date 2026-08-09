@@ -1,0 +1,35 @@
+import java.util.*;
+
+class Solution {
+    public int[] sortByBits(int[] arr) {
+        
+        Integer[] nums = new Integer[arr.length];
+
+        // Convert int[] to Integer[]
+        for (int i = 0; i < arr.length; i++) {
+            nums[i] = arr[i];
+        }
+
+        // Sort using custom comparator
+        Arrays.sort(nums, (a, b) -> {
+            
+            int bitsA = Integer.bitCount(a);
+            int bitsB = Integer.bitCount(b);
+
+            // First compare number of 1 bits
+            if (bitsA != bitsB) {
+                return bitsA - bitsB;
+            }
+
+            // If same number of 1 bits, compare numbers
+            return a - b;
+        });
+
+        // Convert Integer[] back to int[]
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = nums[i];
+        }
+
+        return arr;
+    }
+}
