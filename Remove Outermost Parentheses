@@ -1,0 +1,28 @@
+class Solution {
+    public String removeOuterParentheses(String s) {
+        StringBuilder result = new StringBuilder();
+        int count = 0;
+
+        for (char ch : s.toCharArray()) {
+
+            if (ch == '(') {
+                count++;
+
+                // Add only if it is not the outermost '('
+                if (count > 1) {
+                    result.append(ch);
+                }
+
+            } else {
+                count--;
+
+                // Add only if it is not the outermost ')'
+                if (count > 0) {
+                    result.append(ch);
+                }
+            }
+        }
+
+        return result.toString();
+    }
+}
