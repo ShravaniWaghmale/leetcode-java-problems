@@ -1,0 +1,24 @@
+class Solution {
+    public int[] sortArrayByParityII(int[] nums) {
+        int oddIndex = 1;
+
+        for (int evenIndex = 0; evenIndex < nums.length; evenIndex += 2) {
+            
+            // If an odd number is at an even index
+            if (nums[evenIndex] % 2 != 0) {
+                
+                // Find an even number at an odd index
+                while (nums[oddIndex] % 2 != 0) {
+                    oddIndex += 2;
+                }
+
+                // Swap
+                int temp = nums[evenIndex];
+                nums[evenIndex] = nums[oddIndex];
+                nums[oddIndex] = temp;
+            }
+        }
+
+        return nums;
+    }
+}
