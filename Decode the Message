@@ -1,0 +1,36 @@
+class Solution {
+    public String decodeMessage(String key, String message) {
+        char[] map = new char[26];
+        boolean[] used = new boolean[26];
+
+        int index = 0;
+
+        // Build the substitution mapping
+        for (char ch : key.toCharArray()) {
+            if (ch == ' ') {
+                continue;
+            }
+
+            int idx = ch - 'a';
+
+            if (!used[idx]) {
+                map[idx] = (char) ('a' + index);
+                used[idx] = true;
+                index++;
+            }
+        }
+
+        // Decode the message
+        StringBuilder result = new StringBuilder();
+
+        for (char ch : message.toCharArray()) {
+            if (ch == ' ') {
+                result.append(' ');
+            } else {
+                result.append(map[ch - 'a']);
+            }
+        }
+
+        return result.toString();
+    }
+}
