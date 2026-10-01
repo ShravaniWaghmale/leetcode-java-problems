@@ -1,0 +1,25 @@
+class Solution {
+    public int digitFrequencyScore(int[] nums) {
+        int[] freq = new int[10];
+
+        // Count frequency of each digit
+        for (int num : nums) {
+            while (num > 0) {
+                int digit = num % 10;
+                freq[digit]++;
+                num /= 10;
+            }
+        }
+
+        // Calculate the score
+        int score = 0;
+
+        for (int i = 0; i < 10; i++) {
+            if (freq[i] > 0) {
+                score += i * freq[i];
+            }
+        }
+
+        return score;
+    }
+}
