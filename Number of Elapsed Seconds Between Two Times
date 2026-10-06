@@ -1,15 +1,16 @@
 class Solution {
-    public int getSeconds(String time) {
-        String[] parts = time.split(":");
+    public int secondsBetweenTimes(String time1, String time2) {
+        String[] t1 = time1.split(":");
+        String[] t2 = time2.split(":");
 
-        int hours = Integer.parseInt(parts[0]);
-        int minutes = Integer.parseInt(parts[1]);
-        int seconds = Integer.parseInt(parts[2]);
+        int seconds1 = Integer.parseInt(t1[0]) * 3600
+                      + Integer.parseInt(t1[1]) * 60
+                      + Integer.parseInt(t1[2]);
 
-        return hours * 3600 + minutes * 60 + seconds;
-    }
+        int seconds2 = Integer.parseInt(t2[0]) * 3600
+                      + Integer.parseInt(t2[1]) * 60
+                      + Integer.parseInt(t2[2]);
 
-    public int convertTime(String current, String correct) {
-        return getSeconds(correct) - getSeconds(current);
+        return seconds2 - seconds1;
     }
 }
