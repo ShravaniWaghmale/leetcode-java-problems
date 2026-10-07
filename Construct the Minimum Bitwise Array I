@@ -1,0 +1,27 @@
+class Solution {
+    public int[] minBitwiseArray(List<Integer> nums) {
+        int[] ans = new int[nums.size()];
+
+        for (int i = 0; i < nums.size(); i++) {
+            int x = nums.get(i);
+
+            // If x is 2, no valid answer exists
+            if (x == 2) {
+                ans[i] = -1;
+                continue;
+            }
+
+            int bit = 1;
+
+            // Find the first 0 after consecutive trailing 1s
+            while ((x & bit) != 0) {
+                bit <<= 1;
+            }
+
+            // Turn the highest trailing 1 into 0
+            ans[i] = x - (bit >> 1);
+        }
+
+        return ans;
+    }
+}
